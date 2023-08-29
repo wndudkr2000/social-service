@@ -2,11 +2,13 @@ package com.socialserviceinfo.infoforsocialservice.controller;
 
 import com.socialserviceinfo.infoforsocialservice.entity.*;
 import com.socialserviceinfo.infoforsocialservice.service.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 public class SocialServiceController {
@@ -199,6 +201,23 @@ public class SocialServiceController {
         communityService.delete(id);
         return "redirect:/community/list";
     }
+
+    // 수정기능 ############################
+    @GetMapping("/bad/edit")
+    private String badEdit(Model model, Long id) {
+        model.addAttribute("badedit", badlistService.badEdit(id));
+        return "badedit";
+    }
+
+    // 수정값 처리부분 ############################
+
+    @Transactional
+    @PutMapping("/bad/update")
+    public String badUpdate(Badlist badlist) {
+        badlistService.update(badlist);
+        return "redirect:/bad/list";
+    }
+
 
     // 검색기능 ############################
 

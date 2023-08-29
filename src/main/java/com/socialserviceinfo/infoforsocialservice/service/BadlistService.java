@@ -37,4 +37,12 @@ public class BadlistService {
     }
 
 
+    public Badlist badEdit(Long id) {
+        return badlistRepository.findById(id).get();
+    }
+
+    public void update(Badlist badlist) {
+        badlistRepository.save(badlist);
+    }
+
 }
